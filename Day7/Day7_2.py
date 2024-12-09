@@ -9,6 +9,7 @@ def createOps(addedLength,results=[""]):
     for i in results:
         newResults.append(i+"+")
         newResults.append(i+"*")
+        newResults.append(i + "|")
 
     return createOps(addedLength-1,newResults)
 
@@ -26,10 +27,13 @@ for line in lines:
     for operation in possibleOps:
         val = numbers[0]
         for i in range(len(operation)):
-            val=eval(str(val)+operation[i]+str(numbers[i+1]))
+            if operation[i]=="|":
+                val=int(str(val)+str(numbers[i+1]))
+            else:
+                val=eval(str(val)+operation[i]+str(numbers[i+1]))
+
             if val>total:
                 break
-
         if val==total:
             sum+=total
             break
